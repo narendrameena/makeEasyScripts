@@ -1,9 +1,9 @@
 #!/bin/sh
 #author narumeena 
 
-for VAR in $(find $(pwd) -name "*.indel"); 
+for VAR in $(find $(pwd) -name "*.sort.vcf"); 
 do # Not recommended, will break on whitespace
-	mv ${VAR} "${VAR}.vcf"
+	rm -r ${VAR} 
 done 
 
 exit 0
