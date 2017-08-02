@@ -21,39 +21,34 @@ sh picardParallel.sh
 sh samIndexing1.sh 
 
 
-#markduplicates using picard 
-sh picardMarkDuplicates.sh 
+#mark duplicates using picard 
+sh picardMarkDuplicates.sh
 
 #samtools indexing again after mark duplication 
 sh sampleIndexing2.sh 
 
 
 #GATK realinger applied 
-sh GATKRealing.sh 
+sh GATKRealinger.sh 
 
-#GATK indel realing 
+#GATK indelrealingment 
+sh GATKIndelRealing.sh 
 
-sh GATKindelRealing.sh 
-
-#GATK base REcalibaration 
-
-sh GATKBaseReacalibration.sh 
+#GATK base Recalibaration 
+sh GATKBaseRecalibaration.sh
 
 #GATK print reads optional 
-sh GATKPrintReds.hs 
+sh GATKPrintRead.sh
 
 
 #GATK hayplotype caller 
-
-sh GATKHyplotypeCAller.sh
+sh GATKHaplotype.sh
 
 #GATK unified caller 
-
-sh GATKunified.sh 
+sh GATKUnified.sh  
 
 #GATK all CAller 
-
-sh GATKAllCaller.sh 
+sh GATKAllCaller.sh
 
 
 
