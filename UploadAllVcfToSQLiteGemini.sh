@@ -14,16 +14,16 @@ do # Not recommended, will break on whitespace
     then
         rm "${VAR%.*}.snpeff.ann.vcf"
     fi
-    java -Xmx128g -jar "$SNPEFF" hg19 "${VAR}" > "${VAR%.*}.snpeff.ann.vcf"
-    if [ -f "${VAR%.*}.new.vcf" ] 
+    java -Xmx128g -jar "$SNPEFF"  hg19 "${VAR}" > "${VAR%.*}.snpeff.ann.vcf"
+    if [ -f "${VAR%.*}.snpeff.ann.new.vcf" ] 
     then
-        rm "${VAR%.*}.new.vcf"
+        rm "${VAR%.*}.snpeff.ann.new.vcf"
     fi
-    "$VT" decompose -s "${VAR%.*}.snpeff.ann.vcf" | "$VT"  normalize -r "$REF" - > "${VAR%.*}.new.vcf"
-    if [ -f "${VAR%.*}.new.vcf.db" ] 
+    "$VT" decompose -s "${VAR%.*}.snpeff.ann.vcf" | "$VT"  normalize -r "$REF" - > "${VAR%.*}.snpeff.ann.new.vcf"
+    if [ -f "${VAR%.*}.snpeff.ann.new.db" ] 
     then
-        rm "${VAR%.*}.new.vcf.db"
+        rm "${VAR%.*}.snpeff.ann.new.db"
     fi
-    "$GEMINI" load -v "${VAR%.*}.new.vcf" -t VEP "${VAR%.*}.new.vcf.db"
+    "$GEMINI" load -v "${VAR%.*}.snpeff.ann.new.vcf" -t snpEff "${VAR%.*}.snpeff.ann.new.db"
 done 
 exit 0
