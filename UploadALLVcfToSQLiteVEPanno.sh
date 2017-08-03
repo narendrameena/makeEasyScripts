@@ -10,21 +10,20 @@ GEMINI="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/gemini/bin/gemi
 VEP="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/ensembl-vep/vep.pl"
 for VAR in $(find $(pwd) -name "*.raw.default.vcf" && find $(pwd) -name "*.raw.vcf" && find $(pwd) -name "*.cons.vcf" && find $(pwd) -name "*.pvalue.vcf" && find $(pwd) -name "*.indel.vcf" && find $(pwd) -name "*.snp.vcf") ; 
 do # Not recommended, will break on whitespace
-    echo "$VAR"
-    if [ -f "${VAR%.*}.vep.ann.vcf" ]  
+    if [ -f "${VAR%.*}.new.vcf" ] 
     then
-        rm "${VAR%.*}.vep.ann.vcf"
+        rm "${VAR%.*}.new.vcf"
     fi
-    perl "$VEP" -i "${VAR}" --cache --sift b --polyphen b --symbol --numbers --biotype --total_length -o "${VAR%.*}.vep.ann.vcf" --vcf --fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE 
-    if [ -f "${VAR%.*}.vep.ann.new.vcf" ] 
+    "$VT" decompose -s "${VAR%.*}.vcf" | "$VT"  normalize -r "$REF" - > "${VAR%.*}.new.vcf"
+    if [ -f "${VAR%.*}.new.vep.ann.vcf" ]  
     then
-        rm "${VAR%.*}.vep.ann.new.vcf"
+        rm "${VAR%.*}.new.vep.ann.vcf"
     fi
-    "$VT" decompose -s "${VAR%.*}.vep.ann.vcf" | "$VT"  normalize -r "$REF" - > "${VAR%.*}.vep.ann.new.vcf"
-    if [ -f "${VAR%.*}.vep.ann.new.db" ] 
+    perl "$VEP" -i "${VAR%.*}.new.vcf" --cache --sift b --polyphen b --symbol --numbers --biotype --total_length -o "${VAR%.*}.new.vep.ann.vcf"--vcf --fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE 
+    if [ -f "${VAR%.*}.new.vep.ann.db" ] 
     then
-        rm "${VAR%.*}.vep.ann.new.db"
+        rm "${VAR%.*}.new.vep.ann.db"
     fi
-    "$GEMINI" load -v "${VAR%.*}.vep.ann.new.vcf" -t snpEff "${VAR%.*}.vep.ann.new.db"
+    "$GEMINI" load -v "${VAR%.*}.new.vep.ann.vcf" -t VEP "${VAR%.*}.new.vep.ann.db"
 done 
 exit 0

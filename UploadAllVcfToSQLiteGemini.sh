@@ -10,20 +10,20 @@ GEMINI="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/gemini/bin/gemi
 SNPEFF="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/snpEff/snpEff.jar"
 for VAR in $(find $(pwd) -name "*.vcf"); 
 do # Not recommended, will break on whitespace
-    if [ -f "${VAR%.*}.snpeff.ann.vcf" ]  
+    if [ -f "${VAR%.*}.new.vcf" ] 
     then
-        rm "${VAR%.*}.snpeff.ann.vcf"
+        rm "${VAR%.*}.new.vcf"
     fi
-    java -Xmx128g -jar "$SNPEFF"  hg19 "${VAR}" > "${VAR%.*}.snpeff.ann.vcf"
-    if [ -f "${VAR%.*}.snpeff.ann.new.vcf" ] 
+    "$VT" decompose -s "${VAR%.*}.vcf" | "$VT"  normalize -r "$REF" - > "${VAR%.*}.new.vcf"
+    if [ -f "${VAR%.*}.new.snpeff.ann.vcf" ]  
     then
-        rm "${VAR%.*}.snpeff.ann.new.vcf"
+        rm "${VAR%.*}.new.snpeff.ann.vcf"
     fi
-    "$VT" decompose -s "${VAR%.*}.snpeff.ann.vcf" | "$VT"  normalize -r "$REF" - > "${VAR%.*}.snpeff.ann.new.vcf"
-    if [ -f "${VAR%.*}.snpeff.ann.new.db" ] 
+    java -Xmx128g -jar "$SNPEFF"  hg19 "${VAR%.*}.new.vcf" > "${VAR%.*}.new.snpeff.ann.vcf"
+        if [ -f "${VAR%.*}.new.snpeff.ann.db" ] 
     then
-        rm "${VAR%.*}.snpeff.ann.new.db"
+        rm "${VAR%.*}.new.snpeff.ann.db"
     fi
-    "$GEMINI" load -v "${VAR%.*}.snpeff.ann.new.vcf" -t snpEff "${VAR%.*}.snpeff.ann.new.db"
+    "$GEMINI" load -v "${VAR%.*}.new.snpeff.ann.vcf" -t snpEff "${VAR%.*}.new.snpeff.ann.db"
 done 
 exit 0

@@ -1,0 +1,332 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 CREATE TABLE sample_genotype_counts (\
+        sample_id INTEGER,\
+        num_hom_ref INTEGER,\
+        num_het INTEGER,\
+        num_hom_alt INTEGER,\
+        num_unknown INTEGER,\
+        PRIMARY KEY (sample_id)\
+)\
+CREATE TABLE variant_impacts (\
+        variant_id INTEGER,\
+        anno_id INTEGER,\
+        gene VARCHAR(60),\
+        transcript VARCHAR(60),\
+        is_exonic BOOLEAN,\
+        is_coding BOOLEAN,\
+        is_lof BOOLEAN,\
+        exon TEXT,\
+        codon_change TEXT,\
+        aa_change TEXT,\
+        aa_length TEXT,\
+        biotype TEXT,\
+        impact VARCHAR(60),\
+        impact_so TEXT,\
+        impact_severity VARCHAR(20),\
+        polyphen_pred TEXT,\
+        polyphen_score FLOAT,\
+        sift_pred TEXT,\
+        sift_score FLOAT,\
+        CHECK (is_exonic IN (0, 1)),\
+        CHECK (is_coding IN (0, 1)),\
+        CHECK (is_lof IN (0, 1))\
+)\
+CREATE TABLE vcf_header (\
+        vcf_header TEXT\
+)\
+CREATE TABLE gene_detailed (\
+        uid INTEGER,\
+        chrom VARCHAR(60),\
+        gene VARCHAR(60),\
+        is_hgnc BOOLEAN,\
+        ensembl_gene_id TEXT,\
+        transcript VARCHAR(60),\
+        biotype TEXT,\
+        transcript_status TEXT,\
+        ccds_id VARCHAR(60),\
+        hgnc_id TEXT,\
+        entrez_id TEXT,\
+        cds_length TEXT,\
+        protein_length TEXT,\
+        transcript_start TEXT,\
+        transcript_end TEXT,\
+        strand TEXT,\
+        synonym TEXT,\
+        rvis_pct FLOAT,\
+        mam_phenotype_id TEXT,\
+        PRIMARY KEY (uid),\
+        CHECK (is_hgnc IN (0, 1))\
+)\
+CREATE TABLE version (\
+        version TEXT\
+)\
+CREATE TABLE variants (\
+        chrom VARCHAR(20),\
+        start INTEGER,\
+        "end" INTEGER,\
+        vcf_id TEXT,\
+        variant_id INTEGER,\
+        anno_id INTEGER,\
+        ref TEXT,\
+        alt TEXT,\
+        qual FLOAT,\
+        filter TEXT,\
+        type VARCHAR(20),\
+        sub_type TEXT,\
+        gts BLOB,\
+        gt_types BLOB,\
+        gt_phases BLOB,\
+        gt_depths BLOB,\
+        gt_ref_depths BLOB,\
+        gt_alt_depths BLOB,\
+        gt_alt_freqs BLOB,\
+        gt_quals BLOB,\
+        gt_copy_numbers BLOB,\
+        gt_phred_ll_homref BLOB,\
+        gt_phred_ll_het BLOB,\
+        gt_phred_ll_homalt BLOB,\
+        call_rate FLOAT,\
+        max_aaf_all FLOAT,\
+        in_dbsnp BOOLEAN,\
+        rs_ids TEXT,\
+        sv_cipos_start_left INTEGER,\
+        sv_cipos_end_left INTEGER,\
+        sv_cipos_start_right INTEGER,\
+        sv_cipos_end_right INTEGER,\
+        sv_length INTEGER,\
+        sv_is_precise BOOLEAN,\
+        sv_tool TEXT,\
+        sv_evidence_type TEXT,\
+        sv_event_id TEXT,\
+        sv_mate_id TEXT,\
+        sv_strand TEXT,\
+        in_omim BOOLEAN,\
+        clinvar_sig TEXT,\
+        clinvar_disease_name TEXT,\
+        clinvar_dbsource TEXT,\
+        clinvar_dbsource_id TEXT,\
+        clinvar_origin TEXT,\
+        clinvar_dsdb TEXT,\
+        clinvar_dsdbid TEXT,\
+        clinvar_disease_acc TEXT,\
+        clinvar_in_locus_spec_db BOOLEAN,\
+        clinvar_on_diag_assay BOOLEAN,\
+        clinvar_causal_allele TEXT,\
+        clinvar_gene_phenotype TEXT,\
+        geno2mp_hpo_ct INTEGER,\
+        pfam_domain TEXT,\
+        cyto_band TEXT,\
+        rmsk TEXT,\
+        in_cpg_island BOOLEAN,\
+        in_segdup BOOLEAN,\
+        is_conserved BOOLEAN,\
+        gerp_bp_score FLOAT,\
+        gerp_element_pval FLOAT,\
+        num_hom_ref INTEGER,\
+        num_het INTEGER,\
+        num_hom_alt INTEGER,\
+        num_unknown INTEGER,\
+        aaf FLOAT,\
+        hwe FLOAT,\
+        inbreeding_coeff FLOAT,\
+        pi FLOAT,\
+        recomb_rate FLOAT,\
+        gene VARCHAR(60),\
+        transcript VARCHAR(60),\
+        is_exonic BOOLEAN,\
+        is_coding BOOLEAN,\
+        is_splicing BOOLEAN,\
+        is_lof BOOLEAN,\
+        exon TEXT,\
+        codon_change TEXT,\
+        aa_change TEXT,\
+        aa_length TEXT,\
+        biotype TEXT,\
+        impact VARCHAR(60),\
+        impact_so TEXT,\
+        impact_severity VARCHAR(20),\
+        polyphen_pred TEXT,\
+        polyphen_score FLOAT,\
+        sift_pred TEXT,\
+        sift_score FLOAT,\
+        anc_allele TEXT,\
+        rms_bq FLOAT,\
+        cigar TEXT,\
+        depth INTEGER,\
+        strand_bias FLOAT,\
+        rms_map_qual FLOAT,\
+        in_hom_run INTEGER,\
+        num_mapq_zero INTEGER,\
+        num_alleles INTEGER,\
+        num_reads_w_dels FLOAT,\
+        haplotype_score FLOAT,\
+        qual_depth FLOAT,\
+        allele_count INTEGER,\
+        allele_bal FLOAT,\
+        in_hm2 BOOLEAN,\
+        in_hm3 BOOLEAN,\
+        is_somatic BOOLEAN,\
+        somatic_score FLOAT,\
+        in_esp BOOLEAN,\
+        aaf_esp_ea FLOAT,\
+        aaf_esp_aa FLOAT,\
+        aaf_esp_all FLOAT,\
+        exome_chip BOOLEAN,\
+        in_1kg BOOLEAN,\
+        aaf_1kg_amr FLOAT,\
+        aaf_1kg_eas FLOAT,\
+        aaf_1kg_sas FLOAT,\
+        aaf_1kg_afr FLOAT,\
+        aaf_1kg_eur FLOAT,\
+        aaf_1kg_all FLOAT,\
+        grc TEXT,\
+        gms_illumina FLOAT,\
+        gms_solid FLOAT,\
+        gms_iontorrent FLOAT,\
+        in_cse BOOLEAN,\
+        encode_tfbs TEXT,\
+        "encode_dnaseI_cell_count" INTEGER,\
+        "encode_dnaseI_cell_list" TEXT,\
+        encode_consensus_gm12878 TEXT,\
+        encode_consensus_h1hesc TEXT,\
+        encode_consensus_helas3 TEXT,\
+        encode_consensus_hepg2 TEXT,\
+        encode_consensus_huvec TEXT,\
+        encode_consensus_k562 TEXT,\
+        vista_enhancers TEXT,\
+        cosmic_ids TEXT,\
+        info BLOB,\
+        cadd_raw FLOAT,\
+        cadd_scaled FLOAT,\
+        fitcons FLOAT,\
+        in_exac BOOLEAN,\
+        aaf_exac_all FLOAT,\
+        aaf_adj_exac_all FLOAT,\
+        aaf_adj_exac_afr FLOAT,\
+        aaf_adj_exac_amr FLOAT,\
+        aaf_adj_exac_eas FLOAT,\
+        aaf_adj_exac_fin FLOAT,\
+        aaf_adj_exac_nfe FLOAT,\
+        aaf_adj_exac_oth FLOAT,\
+        aaf_adj_exac_sas FLOAT,\
+        exac_num_het INTEGER,\
+        exac_num_hom_alt INTEGER,\
+        exac_num_chroms INTEGER,\
+        aaf_gnomad_all FLOAT,\
+        aaf_gnomad_afr FLOAT,\
+        aaf_gnomad_amr FLOAT,\
+        aaf_gnomad_asj FLOAT,\
+        aaf_gnomad_eas FLOAT,\
+        aaf_gnomad_fin FLOAT,\
+        aaf_gnomad_nfe FLOAT,\
+        aaf_gnomad_oth FLOAT,\
+        aaf_gnomad_sas FLOAT,\
+        gnomad_num_het INTEGER,\
+        gnomad_num_hom_alt INTEGER,\
+        gnomad_num_chroms INTEGER,\
+        PRIMARY KEY (variant_id),\
+        CHECK (in_dbsnp IN (0, 1)),\
+        CHECK (sv_is_precise IN (0, 1)),\
+        CHECK (in_omim IN (0, 1)),\
+        CHECK (clinvar_in_locus_spec_db IN (0, 1)),\
+        CHECK (clinvar_on_diag_assay IN (0, 1)),\
+        CHECK (in_cpg_island IN (0, 1)),\
+        CHECK (in_segdup IN (0, 1)),\
+        CHECK (is_conserved IN (0, 1)),\
+        CHECK (is_exonic IN (0, 1)),\
+        CHECK (is_coding IN (0, 1)),\
+        CHECK (is_splicing IN (0, 1)),\
+        CHECK (is_lof IN (0, 1)),\
+        CHECK (in_hm2 IN (0, 1)),\
+        CHECK (in_hm3 IN (0, 1)),\
+        CHECK (is_somatic IN (0, 1)),\
+        CHECK (in_esp IN (0, 1)),\
+        CHECK (exome_chip IN (0, 1)),\
+        CHECK (in_1kg IN (0, 1)),\
+        CHECK (in_cse IN (0, 1)),\
+        CHECK (in_exac IN (0, 1))\
+)\
+CREATE TABLE gene_summary (\
+        uid INTEGER,\
+        chrom VARCHAR(60),\
+        gene VARCHAR(60),\
+        is_hgnc BOOLEAN,\
+        ensembl_gene_id TEXT,\
+        hgnc_id TEXT,\
+        transcript_min_start INTEGER,\
+        transcript_max_end INTEGER,\
+        strand TEXT,\
+        synonym TEXT,\
+        rvis_pct FLOAT,\
+        mam_phenotype_id TEXT,\
+        in_cosmic_census BOOLEAN,\
+        PRIMARY KEY (uid),\
+        CHECK (is_hgnc IN (0, 1)),\
+        CHECK (in_cosmic_census IN (0, 1))\
+)\
+CREATE TABLE resources (\
+        name TEXT,\
+        resource TEXT\
+)\
+CREATE TABLE sample_genotypes (\
+        sample_id INTEGER,\
+        gt_types BLOB,\
+        PRIMARY KEY (sample_id)\
+)\
+CREATE TABLE samples (\
+        sample_id INTEGER NOT NULL,\
+        family_id TEXT,\
+        name VARCHAR(50),\
+        paternal_id TEXT,\
+        maternal_id TEXT,\
+        sex TEXT,\
+        phenotype TEXT,\
+        PRIMARY KEY (sample_id)\
+)\
+CREATE INDEX var_chr_start_idx on                      variants(chrom, start)\
+CREATE INDEX var_type_idx on variants(type)\
+CREATE INDEX var_gt_counts_idx on                       variants(num_hom_ref, num_het,                                num_hom_alt, num_unknown)\
+CREATE INDEX var_aaf_idx on variants(aaf)\
+CREATE INDEX var_in_dbsnp_idx on variants(in_dbsnp)\
+CREATE INDEX var_in_call_rate_idx on variants(call_rate)\
+CREATE INDEX var_exonic_idx on variants(is_exonic)\
+CREATE INDEX var_coding_idx on variants(is_coding)\
+CREATE INDEX var_lof_idx on variants(is_lof)\
+CREATE INDEX var_som_idx on variants(is_somatic)\
+CREATE INDEX var_depth_idx on variants(depth)\
+CREATE INDEX var_gene_idx on variants(gene)\
+CREATE INDEX var_trans_idx on variants(transcript)\
+CREATE INDEX var_impact_idx on variants(impact)\
+CREATE INDEX var_impact_severity_idx on variants(impact_severity)\
+CREATE INDEX var_esp_idx on variants(aaf_esp_all)\
+CREATE INDEX var_1kg_idx on variants(aaf_1kg_all)\
+CREATE INDEX var_qual_idx on variants(qual)\
+CREATE INDEX var_homref_idx on variants(num_hom_ref)\
+CREATE INDEX var_homalt_idx on variants(num_hom_alt)\
+CREATE INDEX var_het_idx on variants(num_het)\
+CREATE INDEX var_unk_idx on variants(num_unknown)\
+CREATE INDEX var_omim_idx on variants(in_omim)\
+CREATE INDEX var_cadd_raw_idx on variants(cadd_raw)\
+CREATE INDEX var_cadd_scaled_idx on variants(cadd_scaled)\
+CREATE INDEX var_fitcons_idx on variants(fitcons)\
+CREATE INDEX chrom_varid_idx on variants(chrom,variant_id)\
+CREATE INDEX max_aaf_all_idx on variants(max_aaf_all)\
+CREATE INDEX varimp_exonic_idx on                       variant_impacts(is_exonic)\
+CREATE INDEX varimp_coding_idx on                       variant_impacts(is_coding)\
+CREATE INDEX varimp_lof_idx on variant_impacts(is_lof)\
+CREATE INDEX varimp_impact_idx on                       variant_impacts(impact)\
+CREATE INDEX varimp_trans_idx on                       variant_impacts(transcript)\
+CREATE INDEX varimp_gene_idx on                       variant_impacts(gene)\
+CREATE UNIQUE INDEX sample_name_idx on samples(name)\
+CREATE INDEX gendet_chrom_gene_idx on                        gene_detailed(chrom, gene)\
+CREATE INDEX gendet_rvis_idx on                        gene_detailed(rvis_pct)\
+CREATE INDEX gendet_transcript_idx on                        gene_detailed(transcript)\
+CREATE INDEX gendet_ccds_idx on                        gene_detailed(ccds_id)\
+CREATE INDEX gensum_chrom_gene_idx on                        gene_summary(chrom, gene)\
+CREATE INDEX gensum_rvis_idx on                       gene_summary(rvis_pct)}
