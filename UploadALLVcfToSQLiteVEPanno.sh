@@ -4,7 +4,7 @@
 #loading all vcf files to sqlite db
 
 #variables
-VT=/"home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/vt/vt"
+VT="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/vt/vt"
 REF="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/genome/hg19/hg19index/bwa/hg19.fasta"
 GEMINI="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/gemini/bin/gemini"
 VEP="/home/ngs/narumeena/Documents/BISR/AAnemia/BISR/software/ensembl-vep/vep.pl"
@@ -19,7 +19,7 @@ do # Not recommended, will break on whitespace
     then
         rm "${VAR%.*}.new.vep.ann.vcf"
     fi
-    perl "$VEP" -i "${VAR%.*}.new.vcf" --cache --sift b --polyphen b --symbol --numbers --biotype --total_length -o "${VAR%.*}.new.vep.ann.vcf"--vcf --fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE 
+    perl "$VEP" -i "${VAR%.*}.new.vcf" --cache --sift b --polyphen b --symbol --numbers --biotype --total_length -o "${VAR%.*}.new.vep.ann.vcf" --vcf --fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE 
     if [ -f "${VAR%.*}.new.vep.ann.db" ] 
     then
         rm "${VAR%.*}.new.vep.ann.db"
